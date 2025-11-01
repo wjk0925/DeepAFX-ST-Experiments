@@ -18,10 +18,10 @@ setup(
     long_description_content_type="text/markdown",
     license="Copyright Adobe Inc.",
     install_requires=[
-        "torch==1.9.0",
-        "torchaudio==0.9.0",
+        "torch==1.12.0",
+        "torchaudio==0.12.0",
+        "torchvision==0.13.0",
         "torchmetrics>=0.4.1",
-        "torchvision==0.10.0",
         "audioread>=2.1.9",
         "auraloss>=0.2.1",
         "librosa>=0.8.1",

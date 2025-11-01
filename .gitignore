@@ -16,3 +16,4 @@ audio/
 outputs/
 env_test/
 checkpoints/
+checkpoints_and_examples.tar.gz

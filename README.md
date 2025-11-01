@@ -1,13 +1,79 @@
 ## DeepAFX-ST Experiments
 
-### Setup (tested on Mac M3)
+### 1. Setup (tested on Mac M3, inference only)
 
 ```
 # Clone the repo
 
 git clone git@github.com:wjk0925/DeepAFX-ST-Experiments.git
-cd 
+cd DeepAFX-ST-Experiments
+
+
+# Create a conda environment
+
+conda create -n deepafx-st python=3.8 -y
+conda activate deepafx-st
+
+
+# Install packages
+
+pip install --upgrade pip
+# Install pesq separately first (fixes build issues on macOS ARM64)
+pip install --use-pep517 pesq
+
+# Install PyTorch with Apple Silicon support (required for Mac M1/M2/M3)
+# PyTorch 1.12.0 is the oldest version with native Apple Silicon support
+# PyTorch 1.9.0 doesn't support Apple Silicon FFT operations
+# pip install torch==1.12.0 torchvision==0.13.0 torchaudio==0.12.0
+
+# Install the package (will skip torch dependencies since already installed)
+pip install --pre -e .
 ```
+
+### 2. Download Released Checkpoints
+
+Download `checkpoints_and_examples.tar.gz` at [https://github.com/adobe-research/DeepAFx-ST/releases/tag/v0.1.0](https://github.com/adobe-research/DeepAFx-ST/releases/tag/v0.1.0) to `DeepAFX-ST-Experiments` and unzip. 
+
+Move `checkpoints` and `examples` under `checkpoints_and_examples` to `DeepAFX-ST-Experiments`.
+
+```
+mv checkpoints_and_examples/checkpoints .
+mv checkpoints_and_examples/examples .
+rm -r checkpoints_and_examples
+```
+
+Your `checkpoint` and `examples` folder structures should be the following:
+
+```
+DeepAFX-ST-Experiments/checkpoints/cdpam/
+DeepAFX-ST-Experiments/checkpoints/probes/
+DeepAFX-ST-Experiments/checkpoints/proxies/
+DeepAFX-ST-Experiments/checkpoints/style/
+DeepAFX-ST-Experiments/examples/voice_raw.wav
+DeepAFX-ST-Experiments/examples/voice_produced.wav
+```
+
+### 3. Test Run with Provided Examples
+
+Use `scripts/process.py` to run inference py passing your input audio -i along with your reference -r and the path to a pretrained model checkpoint `-c.
+
+We focus on the autodiff models.
+
+```
+# Autodiff speech model
+python scripts/process.py -i examples/voice_raw.wav -r examples/voice_produced.wav -c ./checkpoints/style/libritts/autodiff/lightning_logs/version_1/checkpoints/epoch=367-step=1226911-val-libritts-autodiff.ckpt
+
+# Autodiff music model
+python scripts/process.py -i examples/voice_raw.wav -r examples/voice_produced.wav -c checkpoints/style/jamendo/autodiff/lightning_logs/version_0/checkpoints/epoch\=362-step\=1210241-val-jamendo-autodiff.ckpt
+```
+
+If everything works, you should see output audio `voice_raw_out_ref=voice_produced.wav` in `examples`.
+
+
+
+
+
+
 
 
 
