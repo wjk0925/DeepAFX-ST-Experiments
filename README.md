@@ -74,7 +74,7 @@ If everything works, you should see output audio `voice_raw_out_ref=voice_produc
 
 ### 3. Interactive Notebook
 
-Open `interactive.ipynb` in jupyter lab (or jupyter notebook). For details, please see the notebook itself
+Open `interactive.ipynb` in jupyter lab (or jupyter notebook). For details, please see the notebook. You can put the audio files you want to experiment with under `audios`. It might be best to upload `.wav` files as one of my experiment using `.mp3` failed (most likely due to torchaudio loading issue)
 
 ```
 conda activate deepafx-st
