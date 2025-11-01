@@ -1,4 +1,15 @@
-## DeepAFX-ST (Junkai's Experiments)
+## DeepAFX-ST Experiments
+
+### Setup (tested on Mac M3)
+
+```
+# Clone the repo
+
+git clone git@github.com:wjk0925/DeepAFX-ST-Experiments.git
+cd 
+```
+
+
 
 <div align="center">
 
