@@ -18,16 +18,18 @@ conda activate deepafx-st
 # Install packages
 
 pip install --upgrade pip
-# Install pesq separately first (fixes build issues on macOS ARM64)
 pip install --use-pep517 pesq
-
-# Install PyTorch with Apple Silicon support (required for Mac M1/M2/M3)
-# PyTorch 1.12.0 is the oldest version with native Apple Silicon support
-# PyTorch 1.9.0 doesn't support Apple Silicon FFT operations
-# pip install torch==1.12.0 torchvision==0.13.0 torchaudio==0.12.0
-
-# Install the package (will skip torch dependencies since already installed)
 pip install --pre -e .
+
+
+# Install jupyter for the interactive notebook
+
+pip install notebook
+pip install ipywidgets
+pip install jupyterlab
+conda install -c anaconda ipykernel -y
+python -m ipykernel install --user --name=deepafx-st
+
 ```
 
 ### 2. Download Released Checkpoints
@@ -67,7 +69,24 @@ python scripts/process.py -i examples/voice_raw.wav -r examples/voice_produced.w
 python scripts/process.py -i examples/voice_raw.wav -r examples/voice_produced.wav -c checkpoints/style/jamendo/autodiff/lightning_logs/version_0/checkpoints/epoch\=362-step\=1210241-val-jamendo-autodiff.ckpt
 ```
 
-If everything works, you should see output audio `voice_raw_out_ref=voice_produced.wav` in `examples`.
+If everything works, you should see output audio `voice_raw_out_ref=voice_produced.wav` in `examples`, and we are ready to proceed to the actual experiments.
+
+
+### 3. Interactive Notebook
+
+Open `interactive.ipynb` in jupyter lab (or jupyter notebook). For details, please see the notebook itself
+
+```
+conda activate deepafx-st
+cd DeepAFX-ST-Experiments
+jupyter lab
+```
+
+
+
+
+
+
 
 
 
